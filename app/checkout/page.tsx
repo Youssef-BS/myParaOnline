@@ -31,12 +31,10 @@ export default function CheckoutPage() {
     setLoaded(true)
   }, [])
 
-  const subtotal = cartItems.reduce(
+  const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   )
-  const tax = subtotal * 0.1
-  const total = subtotal + tax
 
   const handleSubmitOrder = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -105,7 +103,7 @@ export default function CheckoutPage() {
               <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
               <h1 className="text-3xl font-bold mb-2">Order Placed Successfully!</h1>
               <p className="text-gray-600 dark:text-slate-400 mb-6">
-                Thank you for your order. We&apos;ve sent a confirmation to {shippingAddress.email}
+                Thank you for your order. Our team will reach out at {shippingAddress.phone} to confirm delivery.
               </p>
 
               <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg p-8 mb-8 text-left">
@@ -120,6 +118,14 @@ export default function CheckoutPage() {
                     <span className="px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-950/20 text-yellow-700 dark:text-yellow-400 text-sm font-semibold">
                       Pending
                     </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Payment method:</span>
+                    <span className="font-semibold">Cash on Delivery</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Total due on delivery:</span>
+                    <span className="font-semibold">{formatPrice(total)}</span>
                   </div>
                 </div>
 
@@ -143,8 +149,9 @@ export default function CheckoutPage() {
                       Next Steps
                     </h3>
                     <p className="text-sm text-blue-800 dark:text-blue-300">
-                      Your order has been received and is being processed. You will receive
-                      tracking information via email once your order ships.
+                      Your order has been received and is being prepared for delivery. A
+                      courier will contact you before arrival — please have the total amount
+                      ready in cash.
                     </p>
                   </div>
                 </div>
@@ -355,9 +362,12 @@ export default function CheckoutPage() {
 
                 {/* Payment Notice */}
                 <div className="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                  <p className="text-sm font-semibold text-green-800 dark:text-green-400 mb-1">
+                    Cash on Delivery
+                  </p>
                   <p className="text-sm text-green-800 dark:text-green-400">
-                    ✓ This is a demo checkout. No payment will be processed. Your order
-                    will be created with &quot;pending&quot; status.
+                    No online payment is required. Pay in cash to the delivery courier when
+                    your order arrives.
                   </p>
                 </div>
 
@@ -399,21 +409,13 @@ export default function CheckoutPage() {
                   ))}
                 </div>
 
-                <div className="space-y-3 mb-6 pb-6 border-b border-gray-200 dark:border-slate-700">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-slate-400">Subtotal</span>
-                    <span className="font-semibold">{formatPrice(subtotal)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-slate-400">Tax (10%)</span>
-                    <span className="font-semibold">{formatPrice(tax)}</span>
-                  </div>
-                </div>
-
                 <div className="flex justify-between text-lg font-bold">
                   <span>Total</span>
                   <span className="text-green-600">{formatPrice(total)}</span>
                 </div>
+                <p className="mt-2 text-xs text-gray-500 dark:text-slate-400">
+                  Payable in cash on delivery
+                </p>
               </div>
             </div>
           </div>
