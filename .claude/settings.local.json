@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(node --env-file=.env.local ./scripts/create-admin-tmp.mjs \"admin@admin.com\")"
+      "Bash(node --env-file=.env.local ./scripts/create-admin-tmp.mjs \"admin@admin.com\")",
+      "Bash(node -e ' *)"
     ]
   }
 }
