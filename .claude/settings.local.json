@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(node --env-file=.env.local ./scripts/create-admin-tmp.mjs \"admin@admin.com\")",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(ls \"C:\\\\Users\\\\LENOVO\\\\AppData\\\\Local\\\\ms-playwright\" 2>/dev/null)",
+      "Read(//c/Users/LENOVO/AppData/Local/ms-playwright/**)"
     ]
   }
 }

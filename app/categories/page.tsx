@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase'
 import Link from 'next/link'
 import { ProductCard } from '@/components/product-card'
 import { addToCart } from '@/lib/cart'
+import { useToast } from '@/components/toast-provider'
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<any[]>([])
@@ -13,6 +14,7 @@ export default function CategoriesPage() {
   const [products, setProducts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const supabase = createClient()
+  const { showToast } = useToast()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +64,7 @@ export default function CategoriesPage() {
     const product = products.find((p) => p.id === productId)
     if (!product) return
     addToCart(product)
+    showToast(`${product.name} added to cart`)
   }
 
   return (

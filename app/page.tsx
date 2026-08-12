@@ -8,6 +8,7 @@ import { ProductCard } from '@/components/product-card'
 import { createClient } from '@/lib/supabase'
 import { addToCart } from '@/lib/cart'
 import { useLocale } from '@/components/locale-provider'
+import { useToast } from '@/components/toast-provider'
 
 type Product = {
   id: string
@@ -33,6 +34,7 @@ export default function Home() {
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
   const { t } = useLocale()
+  const { showToast } = useToast()
 
   useEffect(() => {
     let active = true
@@ -56,6 +58,7 @@ export default function Home() {
     const product = products.find((p) => p.id === productId)
     if (!product) return
     addToCart(product)
+    showToast(`${product.name} — ${t('addedToCart')}`)
   }
 
   return (

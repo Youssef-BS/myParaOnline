@@ -14,7 +14,7 @@ type LocaleContextValue = {
 const translations = {
   en: {
     shop: 'Shop', categories: 'Categories', approach: 'Our approach', cart: 'Shopping cart', language: 'Language',
-    curated: 'Curated', essentials: 'Health essentials', add: 'Add', adding: 'Adding', removeWishlist: 'Remove from wishlist', addWishlist: 'Add to wishlist',
+    curated: 'Curated', essentials: 'Health essentials', add: 'Add', adding: 'Adding', removeWishlist: 'Remove from wishlist', addWishlist: 'Add to wishlist', addedToCart: 'Added to cart',
     heroEyebrow: 'Carefully chosen care', heroTitle: 'Better care for every day.', heroDescription: 'Clinically considered essentials for skin, body, and family wellbeing — delivered with care from people who know health.',
     shopCollection: 'Shop the collection', ourApproach: 'Our approach', startHere: 'Start here', shopByNeed: 'Shop by need', viewAll: 'View all', theEdit: 'The edit', everydayEssentials: 'Everyday essentials', exploreProducts: 'Explore products',
     collectionRefreshing: 'Our collection is being refreshed. Check back soon.', calmShopping: 'A calmer way to shop health', goodChoices: 'Good choices feel better.', startShopping: 'Start shopping',
@@ -22,7 +22,7 @@ const translations = {
   },
   fr: {
     shop: 'Boutique', categories: 'Catégories', approach: 'Notre approche', cart: 'Panier', language: 'Langue',
-    curated: 'Sélection', essentials: 'Essentiels santé', add: 'Ajouter', adding: 'Ajout', removeWishlist: 'Retirer des favoris', addWishlist: 'Ajouter aux favoris',
+    curated: 'Sélection', essentials: 'Essentiels santé', add: 'Ajouter', adding: 'Ajout', removeWishlist: 'Retirer des favoris', addWishlist: 'Ajouter aux favoris', addedToCart: 'Ajouté au panier',
     heroEyebrow: 'Des soins choisis avec attention', heroTitle: 'Le bien-être au quotidien.', heroDescription: 'Des essentiels pour la peau, le corps et toute la famille, sélectionnés avec soin par des experts de la santé.',
     shopCollection: 'Découvrir la collection', ourApproach: 'Notre approche', startHere: 'Commencer ici', shopByNeed: 'Acheter par besoin', viewAll: 'Voir tout', theEdit: 'La sélection', everydayEssentials: 'Les essentiels du quotidien', exploreProducts: 'Explorer les produits',
     collectionRefreshing: 'Notre collection est en cours de renouvellement. Revenez bientôt.', calmShopping: 'Une façon plus sereine de prendre soin de sa santé', goodChoices: 'Les bons choix font du bien.', startShopping: 'Commencer mes achats',
@@ -30,7 +30,7 @@ const translations = {
   },
   ar: {
     shop: 'المتجر', categories: 'الفئات', approach: 'نهجنا', cart: 'السلة', language: 'اللغة',
-    curated: 'مختاراتنا', essentials: 'منتجات صحية أساسية', add: 'أضف', adding: 'جاري الإضافة', removeWishlist: 'إزالة من المفضلة', addWishlist: 'أضف إلى المفضلة',
+    curated: 'مختاراتنا', essentials: 'منتجات صحية أساسية', add: 'أضف', adding: 'جاري الإضافة', removeWishlist: 'إزالة من المفضلة', addWishlist: 'أضف إلى المفضلة', addedToCart: 'أُضيف إلى السلة',
     heroEyebrow: 'عناية مختارة بعناية', heroTitle: 'عناية أفضل لكل يوم.', heroDescription: 'منتجات أساسية للبشرة والجسم والعائلة، مختارة بعناية ومقدمة من أشخاص يفهمون احتياجاتك الصحية.',
     shopCollection: 'اكتشف المجموعة', ourApproach: 'نهجنا', startHere: 'ابدأ من هنا', shopByNeed: 'تسوق حسب الحاجة', viewAll: 'عرض الكل', theEdit: 'مختاراتنا', everydayEssentials: 'أساسيات يومية', exploreProducts: 'استكشف المنتجات',
     collectionRefreshing: 'نقوم بتحديث مجموعتنا حالياً. عُد قريباً.', calmShopping: 'طريقة أكثر هدوءاً للتسوق الصحي', goodChoices: 'الاختيارات الجيدة تمنحك شعوراً أفضل.', startShopping: 'ابدأ التسوق',
