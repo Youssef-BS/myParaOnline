@@ -7,6 +7,7 @@ import { Header } from '@/components/header'
 import { ProductCard } from '@/components/product-card'
 import { createClient } from '@/lib/supabase'
 import { addToCart } from '@/lib/cart'
+import { getEffectivePrice } from '@/lib/format'
 import { useLocale } from '@/components/locale-provider'
 import { useToast } from '@/components/toast-provider'
 
@@ -14,6 +15,7 @@ type Product = {
   id: string
   name: string
   price: number
+  discount_price?: number | null
   image_url?: string
   category_name?: string
 }
@@ -57,7 +59,7 @@ export default function Home() {
   const handleAddToCart = (productId: string) => {
     const product = products.find((p) => p.id === productId)
     if (!product) return
-    addToCart(product)
+    addToCart({ ...product, price: getEffectivePrice(product) })
     showToast(`${product.name} — ${t('addedToCart')}`)
   }
 

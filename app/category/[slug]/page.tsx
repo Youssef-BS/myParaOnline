@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase'
 import { ProductCard } from '@/components/product-card'
 import { useParams } from 'next/navigation'
 import { addToCart } from '@/lib/cart'
+import { getEffectivePrice } from '@/lib/format'
 import { useToast } from '@/components/toast-provider'
 
 export default function CategoryDetailPage() {
@@ -54,7 +55,7 @@ export default function CategoryDetailPage() {
   const handleAddToCart = (productId: string) => {
     const product = products.find((p) => p.id === productId)
     if (!product) return
-    addToCart(product)
+    addToCart({ ...product, price: getEffectivePrice(product) })
     showToast(`${product.name} added to cart`)
   }
 
@@ -106,6 +107,7 @@ export default function CategoryDetailPage() {
                   id={product.id}
                   name={product.name}
                   price={product.price}
+                  discount_price={product.discount_price}
                   image_url={product.image_url}
                   onAddToCart={handleAddToCart}
                 />

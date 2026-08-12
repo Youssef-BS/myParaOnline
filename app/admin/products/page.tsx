@@ -10,6 +10,7 @@ interface Product {
   id: string
   name: string
   price: number
+  discount_price?: number | null
   stock: number
   category_id: string
   is_active: boolean
@@ -133,7 +134,14 @@ export default function ProductsPage() {
                       <p className="text-slate-300">{product.categories?.name || '-'}</p>
                     </td>
                     <td className="px-6 py-4">
-                      <p className="text-white font-medium">{formatPrice(product.price)}</p>
+                      {product.discount_price != null && product.discount_price < product.price ? (
+                        <div>
+                          <p className="text-slate-500 text-sm line-through">{formatPrice(product.price)}</p>
+                          <p className="text-green-400 font-semibold">{formatPrice(product.discount_price)}</p>
+                        </div>
+                      ) : (
+                        <p className="text-white font-medium">{formatPrice(product.price)}</p>
+                      )}
                     </td>
                     <td className="px-6 py-4">
                       <p className="text-slate-300">{product.stock}</p>

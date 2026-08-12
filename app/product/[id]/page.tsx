@@ -8,7 +8,7 @@ import { Header } from '@/components/header'
 import { createClient } from '@/lib/supabase'
 import { addToCart } from '@/lib/cart'
 import { useToast } from '@/components/toast-provider'
-import { formatPrice } from '@/lib/format'
+import { formatPrice, hasDiscount, getEffectivePrice } from '@/lib/format'
 import { ChevronRight, Minus, Plus, ShoppingBag, PackageCheck, PackageX } from 'lucide-react'
 
 interface Product {
@@ -16,6 +16,7 @@ interface Product {
   name: string
   description: string | null
   price: number
+  discount_price?: number | null
   stock: number
   image_url?: string
   is_active: boolean
@@ -52,7 +53,7 @@ export default function ProductDetailPage() {
     if (!product) return
     setIsAdding(true)
     addToCart(
-      { id: product.id, name: product.name, price: product.price, image_url: product.image_url },
+      { id: product.id, name: product.name, price: getEffectivePrice(product), image_url: product.image_url },
       quantity
     )
     showToast(`${product.name} — Added to cart`)
@@ -151,7 +152,17 @@ export default function ProductDetailPage() {
                 </p>
               )}
               <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-              <p className="text-3xl font-bold text-green-600 mb-6">{formatPrice(product.price)}</p>
+              {hasDiscount(product) ? (
+                <div className="flex items-baseline gap-3 mb-6">
+                  <p className="text-3xl font-bold text-green-600">{formatPrice(getEffectivePrice(product))}</p>
+                  <p className="text-lg text-gray-400 dark:text-slate-500 line-through">{formatPrice(product.price)}</p>
+                  <span className="px-2 py-1 rounded-full bg-green-100 dark:bg-green-950/30 text-green-700 dark:text-green-400 text-xs font-bold">
+                    -{Math.round((1 - getEffectivePrice(product) / product.price) * 100)}%
+                  </span>
+                </div>
+              ) : (
+                <p className="text-3xl font-bold text-green-600 mb-6">{formatPrice(product.price)}</p>
+              )}
 
               <div className="mb-6 flex items-center gap-2 text-sm font-semibold">
                 {inStock ? (

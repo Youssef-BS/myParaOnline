@@ -28,6 +28,7 @@ export default function ProductForm({
     slug: product?.slug || '',
     description: product?.description || '',
     price: product?.price || '',
+    discount_price: product?.discount_price != null ? String(product.discount_price) : '',
     stock: product?.stock || '',
     category_id: product?.category_id || '',
     is_active: product?.is_active ?? true,
@@ -61,15 +62,23 @@ export default function ProductForm({
         imageUrl = publicUrl
       }
 
+      const discountPrice = formData.discount_price
+        ? parseFloat(formData.discount_price as string)
+        : null
+
       const data = {
         ...formData,
         slug: slugify(formData.slug || formData.name),
         price: parseFloat(formData.price as string),
+        discount_price: discountPrice,
         stock: parseInt(formData.stock as string),
         image_url: imageUrl,
       }
 
       if (!data.slug) throw new Error('Slug is required')
+      if (discountPrice != null && discountPrice >= data.price) {
+        throw new Error('Discount price must be lower than the regular price')
+      }
 
       if (product) {
         // Update existing product
@@ -229,6 +238,24 @@ export default function ProductForm({
                   required
                   className="w-full px-4 py-2 rounded-lg border border-slate-600 bg-slate-700 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition"
                 />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-slate-200 mb-2">
+                  Discount Price (optional)
+                </label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={formData.discount_price}
+                  onChange={(e) =>
+                    setFormData({ ...formData, discount_price: e.target.value })
+                  }
+                  placeholder="Leave empty for no discount"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-600 bg-slate-700 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition"
+                />
+                <p className="text-xs text-slate-500 mt-1">
+                  When set (and lower than price), customers see the regular price struck through next to this one.
+                </p>
               </div>
             </div>
           </div>
