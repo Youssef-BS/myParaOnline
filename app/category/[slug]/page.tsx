@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { Header } from '@/components/header'
 import { createClient } from '@/lib/supabase'
 import { ProductCard } from '@/components/product-card'
@@ -92,8 +93,18 @@ export default function CategoryDetailPage() {
     <>
       <Header />
       <main className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-950 dark:to-slate-900">
+        {category.image_url && (
+          <div className="relative h-48 sm:h-64 w-full overflow-hidden">
+            <Image src={category.image_url} alt={category.name} fill className="object-cover" priority />
+            <div className="absolute inset-0 bg-black/40 flex items-end">
+              <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-6">
+                <h1 className="text-3xl sm:text-4xl font-bold text-white">{category.name}</h1>
+              </div>
+            </div>
+          </div>
+        )}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <h1 className="text-4xl font-bold mb-2">{category.name}</h1>
+          {!category.image_url && <h1 className="text-4xl font-bold mb-2">{category.name}</h1>}
           {category.description && (
             <p className="text-gray-600 dark:text-slate-400 mb-8">{category.description}</p>
           )}

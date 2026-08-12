@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase'
-import { X, Loader2 } from 'lucide-react'
+import { X, Loader2, Upload } from 'lucide-react'
 
 interface CategoryFormProps {
   category?: any
@@ -25,6 +25,7 @@ export default function CategoryForm({ category, onClose }: CategoryFormProps) {
     is_active: category?.is_active ?? true,
   })
   const [slugTouched, setSlugTouched] = useState(!!category?.slug)
+  const [image, setImage] = useState<File | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const supabase = createClient()
@@ -43,11 +44,28 @@ export default function CategoryForm({ category, onClose }: CategoryFormProps) {
     setIsLoading(true)
 
     try {
+      let imageUrl = category?.image_url
+
+      if (image) {
+        const filename = `categories/${Date.now()}-${image.name}`
+        const { error: uploadError } = await supabase.storage
+          .from('products')
+          .upload(filename, image, { upsert: true })
+
+        if (uploadError) throw uploadError
+
+        const {
+          data: { publicUrl },
+        } = supabase.storage.from('products').getPublicUrl(filename)
+        imageUrl = publicUrl
+      }
+
       const data = {
         name: formData.name.trim(),
         slug: slugify(formData.slug || formData.name),
         description: formData.description.trim() || null,
         is_active: formData.is_active,
+        image_url: imageUrl,
       }
 
       if (!data.name) throw new Error('Name is required')
@@ -80,8 +98,8 @@ export default function CategoryForm({ category, onClose }: CategoryFormProps) {
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-slate-800 rounded-lg border border-slate-700 max-w-lg w-full max-h-screen overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-slate-700">
-          <h2 className="text-2xl font-bold text-white">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-slate-700">
+          <h2 className="text-xl sm:text-2xl font-bold text-white">
             {category ? 'Edit Category' : 'Create Category'}
           </h2>
           <button
@@ -93,7 +111,7 @@ export default function CategoryForm({ category, onClose }: CategoryFormProps) {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4">
           {error && (
             <div className="p-4 rounded-lg bg-red-500/20 text-red-400 text-sm">
               {error}
@@ -142,6 +160,36 @@ export default function CategoryForm({ category, onClose }: CategoryFormProps) {
               rows={4}
               className="w-full px-4 py-2 rounded-lg border border-slate-600 bg-slate-700 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition"
             />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-200 mb-2">
+              Category Image
+            </label>
+            <div className="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center">
+              {category?.image_url && !image && (
+                <img
+                  src={category.image_url}
+                  alt=""
+                  className="w-20 h-20 object-cover rounded-lg mx-auto mb-3"
+                />
+              )}
+              <Upload className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+              <label className="block">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setImage(e.target.files?.[0] || null)}
+                  className="hidden"
+                />
+                <span className="text-sm text-slate-300 cursor-pointer hover:text-white">
+                  Click to upload or drag and drop
+                </span>
+              </label>
+              {image && (
+                <p className="text-sm text-green-400 mt-2">{image.name}</p>
+              )}
+            </div>
           </div>
 
           <div className="flex items-center gap-3">

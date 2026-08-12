@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, BadgeCheck, Leaf, ShieldCheck, Sparkles, Truck } from 'lucide-react'
 import { Header } from '@/components/header'
 import { ProductCard } from '@/components/product-card'
@@ -20,7 +21,7 @@ type Product = {
   category_name?: string
 }
 
-type Category = { id: string; name: string; slug: string }
+type Category = { id: string; name: string; slug: string; image_url?: string | null }
 
 const categoryStyles = [
   { eyebrow: 'Skin health', tone: 'bg-primary/10 text-primary' },
@@ -119,7 +120,18 @@ export default function Home() {
         {categories.length > 0 && <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
           <div className="mb-8 flex items-end justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.16em] text-accent">Start here</p><h2 className="mt-2 font-serif text-4xl tracking-[-0.03em]">{t('shopByNeed')}</h2></div><Link href="/categories" className="hidden items-center gap-1 text-sm font-bold text-primary sm:flex">View all <ArrowRight className="size-4" /></Link></div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            {categories.map((category, index) => <Link key={category.id} href={`/category/${category.slug}`} className="group rounded-2xl border border-border bg-card p-4 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg sm:p-5"><div className={`mb-12 flex size-10 items-center justify-center rounded-xl text-xs font-bold ${categoryStyles[index % categoryStyles.length].tone}`}>{String(index + 1).padStart(2, '0')}</div><p className="text-sm font-bold group-hover:text-primary">{category.name}</p><p className="mt-1 text-xs text-muted-foreground">{categoryStyles[index % categoryStyles.length].eyebrow}</p></Link>)}
+            {categories.map((category, index) => category.image_url ? (
+              <Link key={category.id} href={`/category/${category.slug}`} className="group relative aspect-square overflow-hidden rounded-2xl border border-border transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg">
+                <Image src={category.image_url} alt={category.name} fill className="object-cover transition duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-4">
+                  <p className="text-sm font-bold text-white">{category.name}</p>
+                  <p className="mt-0.5 text-xs text-white/75">{categoryStyles[index % categoryStyles.length].eyebrow}</p>
+                </div>
+              </Link>
+            ) : (
+              <Link key={category.id} href={`/category/${category.slug}`} className="group rounded-2xl border border-border bg-card p-4 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg sm:p-5"><div className={`mb-12 flex size-10 items-center justify-center rounded-xl text-xs font-bold ${categoryStyles[index % categoryStyles.length].tone}`}>{String(index + 1).padStart(2, '0')}</div><p className="text-sm font-bold group-hover:text-primary">{category.name}</p><p className="mt-1 text-xs text-muted-foreground">{categoryStyles[index % categoryStyles.length].eyebrow}</p></Link>
+            ))}
           </div>
         </section>}
 
