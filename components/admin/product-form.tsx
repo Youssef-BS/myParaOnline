@@ -100,8 +100,8 @@ export default function ProductForm({
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-slate-800 rounded-lg border border-slate-700 max-w-2xl w-full max-h-screen overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-slate-700">
-          <h2 className="text-2xl font-bold text-white">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-slate-700">
+          <h2 className="text-xl sm:text-2xl font-bold text-white">
             {product ? 'Edit Product' : 'Create Product'}
           </h2>
           <button
@@ -113,7 +113,7 @@ export default function ProductForm({
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-6">
           {error && (
             <div className="p-4 rounded-lg bg-red-500/20 text-red-400 text-sm">
               {error}
@@ -157,7 +157,7 @@ export default function ProductForm({
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-200 mb-2">
                   Slug
@@ -200,7 +200,7 @@ export default function ProductForm({
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-white">Pricing & Stock</h3>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-200 mb-2">
                   Price

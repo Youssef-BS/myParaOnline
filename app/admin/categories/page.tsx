@@ -86,9 +86,9 @@ function CategoriesPageContent() {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-6 lg:p-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold text-white mb-2">Categories</h1>
           <p className="text-slate-400">Organize your product catalog</p>
@@ -98,7 +98,7 @@ function CategoriesPageContent() {
             setEditingCategory(null)
             setShowForm(true)
           }}
-          className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition"
+          className="flex items-center justify-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition"
         >
           <Plus size={20} />
           Add Category

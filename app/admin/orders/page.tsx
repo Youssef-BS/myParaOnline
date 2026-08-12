@@ -59,7 +59,7 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-6 lg:p-8">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">Orders</h1>
@@ -171,8 +171,8 @@ function OrderDetailModal({
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-slate-800 rounded-lg border border-slate-700 max-w-2xl w-full max-h-screen overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-slate-700">
-          <h2 className="text-2xl font-bold text-white">Order Details</h2>
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-slate-700">
+          <h2 className="text-xl sm:text-2xl font-bold text-white">Order Details</h2>
           <button
             onClick={onClose}
             className="text-slate-400 hover:text-white text-2xl"
@@ -182,12 +182,12 @@ function OrderDetailModal({
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-6">
           {/* Order Info */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <p className="text-slate-400 text-sm mb-1">Order ID</p>
-              <p className="text-white font-mono">{order.id}</p>
+              <p className="text-white font-mono break-all">{order.id}</p>
             </div>
             <div>
               <p className="text-slate-400 text-sm mb-1">Status</p>
@@ -198,10 +198,10 @@ function OrderDetailModal({
           </div>
 
           {/* Customer Contact */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <p className="text-slate-400 text-sm mb-1">Email</p>
-              <p className="text-white">{order.customer_email}</p>
+              <p className="text-white break-all">{order.customer_email}</p>
             </div>
             <div>
               <p className="text-slate-400 text-sm mb-1">Phone</p>
