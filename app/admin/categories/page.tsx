@@ -12,6 +12,7 @@ interface Category {
   slug: string
   description: string | null
   is_active: boolean
+  image_url?: string | null
 }
 
 export default function CategoriesPage() {
@@ -128,6 +129,9 @@ function CategoriesPageContent() {
               <thead className="bg-slate-700/50 border-b border-slate-700">
                 <tr>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-slate-200">
+                    Image
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-200">
                     Name
                   </th>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-slate-200">
@@ -147,6 +151,19 @@ function CategoriesPageContent() {
               <tbody className="divide-y divide-slate-700">
                 {categories.map((category) => (
                   <tr key={category.id} className="hover:bg-slate-700/30 transition">
+                    <td className="px-6 py-4">
+                      {category.image_url ? (
+                        <img
+                          src={category.image_url}
+                          alt=""
+                          className="w-12 h-12 object-cover rounded-lg"
+                        />
+                      ) : (
+                        <div className="w-12 h-12 rounded-lg bg-slate-700 flex items-center justify-center text-slate-500 text-xs">
+                          None
+                        </div>
+                      )}
+                    </td>
                     <td className="px-6 py-4">
                       <p className="text-white font-medium">{category.name}</p>
                     </td>

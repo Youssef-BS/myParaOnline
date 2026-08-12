@@ -93,12 +93,19 @@ export default function CategoriesPage() {
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
-                    className={`px-6 py-2 rounded-lg font-medium transition ${
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${
                       selectedCategory === category.id
                         ? 'bg-green-600 text-white'
                         : 'bg-gray-200 dark:bg-slate-700 hover:bg-gray-300'
                     }`}
                   >
+                    {category.image_url && (
+                      <img
+                        src={category.image_url}
+                        alt=""
+                        className="w-6 h-6 rounded-full object-cover"
+                      />
+                    )}
                     {category.name}
                   </button>
                 ))}
