@@ -133,7 +133,7 @@ export default function AdminDashboard() {
         <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
           <h2 className="text-xl font-bold text-white mb-4">Store Information</h2>
           <div className="space-y-3 text-slate-300 text-sm">
-            <InfoItem label="Store Name" value="HealthHub" />
+            <InfoItem label="Store Name" value="myParaOnline.tn" />
             <InfoItem label="Status" value="Active" />
             <InfoItem label="Created" value="Today" />
             <InfoItem label="Settings" value="Ready to configure" />

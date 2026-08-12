@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Header } from '@/components/header'
 import { createClient } from '@/lib/supabase'
-import { getCart, clearCart, type CartItem } from '@/lib/cart'
+import { getCart, clearCart, DELIVERY_FEE, type CartItem } from '@/lib/cart'
 import { CheckCircle, AlertCircle, Loader2, Home } from 'lucide-react'
 import { formatPrice } from '@/lib/format'
 
@@ -31,10 +31,11 @@ export default function CheckoutPage() {
     setLoaded(true)
   }, [])
 
-  const total = cartItems.reduce(
+  const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   )
+  const total = subtotal + (cartItems.length > 0 ? DELIVERY_FEE : 0)
 
   const handleSubmitOrder = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -122,6 +123,14 @@ export default function CheckoutPage() {
                   <div className="flex justify-between">
                     <span>Payment method:</span>
                     <span className="font-semibold">Cash on Delivery</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Subtotal:</span>
+                    <span className="font-semibold">{formatPrice(subtotal)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Delivery (livraison):</span>
+                    <span className="font-semibold">{formatPrice(DELIVERY_FEE)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Total due on delivery:</span>
@@ -407,6 +416,17 @@ export default function CheckoutPage() {
                       </span>
                     </div>
                   ))}
+                </div>
+
+                <div className="space-y-3 mb-6 pb-6 border-b border-gray-200 dark:border-slate-700">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-slate-400">Subtotal</span>
+                    <span className="font-semibold">{formatPrice(subtotal)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-slate-400">Delivery (livraison)</span>
+                    <span className="font-semibold">{formatPrice(DELIVERY_FEE)}</span>
+                  </div>
                 </div>
 
                 <div className="flex justify-between text-lg font-bold">

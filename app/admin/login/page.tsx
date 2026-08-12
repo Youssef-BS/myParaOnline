@@ -69,33 +69,33 @@ export default function AdminLoginPage() {
       <div className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-5xl overflow-hidden rounded-[2rem] border border-border bg-background shadow-xl lg:grid-cols-[0.9fr_1.1fr]">
         <section className="hidden bg-primary p-10 text-primary-foreground lg:flex lg:flex-col lg:justify-between">
           <div>
-            <Link href="/" className="font-serif text-3xl">Mypara Online</Link>
+            <Link href="/" className="font-serif text-3xl">myParaOnline.tn</Link>
             <div className="mt-24 max-w-sm">
               <ShieldCheck className="size-10" />
               <p className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground/70">Private workspace</p>
               <h1 className="mt-4 font-serif text-5xl leading-[1.05]">Carefully managed, calmly delivered.</h1>
-              <p className="mt-6 leading-7 text-primary-foreground/75">Access catalog, orders, customers, and operational insights from the Mypara Online admin workspace.</p>
+              <p className="mt-6 leading-7 text-primary-foreground/75">Access catalog, orders, customers, and operational insights from the myParaOnline.tn admin workspace.</p>
             </div>
           </div>
-          <p className="text-sm text-primary-foreground/60">For authorized Mypara Online administrators only.</p>
+          <p className="text-sm text-primary-foreground/60">For authorized myParaOnline.tn administrators only.</p>
         </section>
 
         <section className="flex items-center p-6 sm:p-12">
           <div className="mx-auto w-full max-w-md">
             <div className="mb-10 lg:hidden">
-              <Link href="/" className="font-serif text-3xl text-primary">Mypara Online</Link>
+              <Link href="/" className="font-serif text-3xl text-primary">myParaOnline.tn</Link>
             </div>
             <div className="mb-8">
               <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary"><LockKeyhole className="size-5" /></div>
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent">Administrator access</p>
               <h2 className="mt-3 font-serif text-4xl text-foreground">Welcome back.</h2>
-              <p className="mt-3 leading-6 text-muted-foreground">Sign in to manage the Mypara Online storefront.</p>
+              <p className="mt-3 leading-6 text-muted-foreground">Sign in to manage the myParaOnline.tn storefront.</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label htmlFor="admin-email" className="mb-2 block text-sm font-bold">Email address</label>
-                <input id="admin-email" type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} className="h-12 w-full rounded-xl border border-border bg-background px-4 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="admin@healthhub.com" />
+                <input id="admin-email" type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} className="h-12 w-full rounded-xl border border-border bg-background px-4 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="admin@myparaonline.tn" />
               </div>
               <div>
                 <label htmlFor="admin-password" className="mb-2 block text-sm font-bold">Password</label>

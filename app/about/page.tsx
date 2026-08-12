@@ -10,7 +10,7 @@ export default function AboutPage() {
       <main className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-950 dark:to-slate-900">
         {/* Hero */}
         <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
-          <h1 className="text-4xl font-bold mb-4">About HealthHub</h1>
+          <h1 className="text-4xl font-bold mb-4">About myParaOnline.tn</h1>
           <p className="text-lg text-gray-600 dark:text-slate-400">
             Your trusted partner in health and wellness
           </p>
@@ -20,7 +20,7 @@ export default function AboutPage() {
         <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-slate-700">
           <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
           <p className="text-gray-700 dark:text-slate-300 mb-4">
-            HealthHub is dedicated to providing premium parapharmacy products that support your health and wellness journey. We believe everyone deserves access to high-quality health products that are carefully selected and trusted by thousands of customers.
+            myParaOnline.tn is dedicated to providing premium parapharmacy products that support your health and wellness journey. We believe everyone deserves access to high-quality health products that are carefully selected and trusted by thousands of customers.
           </p>
           <p className="text-gray-700 dark:text-slate-300">
             Our mission is to make wellness accessible, affordable, and easy for everyone. We partner with leading brands and manufacturers to bring you the best products in vitamins, supplements, skincare, and other health essentials.
@@ -29,7 +29,7 @@ export default function AboutPage() {
 
         {/* Values */}
         <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
-          <h2 className="text-2xl font-bold mb-8">Why Choose HealthHub?</h2>
+          <h2 className="text-2xl font-bold mb-8">Why Choose myParaOnline.tn?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Quality */}
             <div className="text-center">
@@ -80,7 +80,7 @@ export default function AboutPage() {
               We&apos;re here to help! Contact our support team for any questions about our products or services.
             </p>
             <a
-              href="mailto:support@healthhub.com"
+              href="mailto:support@myparaonline.tn"
               className="inline-block px-8 py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition"
             >
               Contact Us

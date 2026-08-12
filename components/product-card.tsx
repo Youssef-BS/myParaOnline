@@ -17,7 +17,7 @@ export function ProductCard({ id, name, price, image_url, category_name, onAddTo
 
   return <article className="group overflow-hidden rounded-3xl border border-border bg-card transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl">
     <div className="relative aspect-[4/4.2] overflow-hidden bg-muted">
-      {image_url ? <Image src={image_url} alt={name} fill className="object-cover transition duration-500 group-hover:scale-105" /> : <div className="flex size-full items-center justify-center bg-primary/5"><span className="font-serif text-5xl text-primary/20">H</span></div>}
+      {image_url ? <Image src={image_url} alt={name} fill className="object-cover transition duration-500 group-hover:scale-105" /> : <div className="flex size-full items-center justify-center bg-primary/5"><span className="font-serif text-5xl text-primary/20">M</span></div>}
       <button type="button" onClick={() => setIsWishlisted(!isWishlisted)} className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full bg-background/90 text-muted-foreground shadow-sm backdrop-blur transition hover:text-accent" aria-label={isWishlisted ? t('removeWishlist') : t('addWishlist')}><Heart className={`size-4 ${isWishlisted ? 'fill-accent text-accent' : ''}`} /></button>
       <span className="absolute bottom-3 left-3 rounded-full bg-background/90 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-primary backdrop-blur">{t('curated')}</span>
     </div>

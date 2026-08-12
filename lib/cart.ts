@@ -6,6 +6,8 @@ export interface CartItem {
   quantity: number
 }
 
+export const DELIVERY_FEE = 8
+
 const CART_KEY = 'cart'
 const CART_EVENT = 'cart-updated'
 

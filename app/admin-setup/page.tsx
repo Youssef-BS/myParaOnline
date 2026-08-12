@@ -61,9 +61,9 @@ export default function AdminSetupPage() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">H</span>
+              <span className="text-white font-bold text-sm">M</span>
             </div>
-            <span className="font-bold text-xl">HealthHub</span>
+            <span className="font-bold text-xl">myParaOnline.tn</span>
           </Link>
           <h1 className="text-3xl font-bold mb-2">Admin Setup</h1>
           <p className="text-gray-600 dark:text-slate-400">
@@ -88,7 +88,7 @@ export default function AdminSetupPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@healthhub.com"
+              placeholder="admin@myparaonline.tn"
               required
               className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition"
             />

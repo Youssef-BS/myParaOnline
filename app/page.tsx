@@ -127,7 +127,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-24"><div className="rounded-[2rem] bg-secondary px-6 py-12 text-secondary-foreground sm:px-12 lg:flex lg:items-center lg:justify-between lg:py-16"><div><p className="text-xs font-bold uppercase tracking-[0.16em] opacity-70">{t('calmShopping')}</p><h2 className="mt-3 max-w-xl font-serif text-4xl tracking-[-0.03em] sm:text-5xl">{t('goodChoices')}</h2><p className="mt-4 max-w-lg text-sm leading-6 opacity-75">{t('joinHealthHub')}</p></div><Link href="/categories" className="mt-8 inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-secondary-foreground px-6 py-3.5 text-sm font-bold text-secondary transition hover:opacity-90 lg:mt-0">{t('startShopping')} <ArrowRight className="size-4" /></Link></div></section>
+        <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-24"><div className="rounded-[2rem] bg-secondary px-6 py-12 text-secondary-foreground sm:px-12 lg:flex lg:items-center lg:justify-between lg:py-16"><div><p className="text-xs font-bold uppercase tracking-[0.16em] opacity-70">{t('calmShopping')}</p><h2 className="mt-3 max-w-xl font-serif text-4xl tracking-[-0.03em] sm:text-5xl">{t('goodChoices')}</h2><p className="mt-4 max-w-lg text-sm leading-6 opacity-75">{t('joinMyParaOnline')}</p></div><Link href="/categories" className="mt-8 inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-secondary-foreground px-6 py-3.5 text-sm font-bold text-secondary transition hover:opacity-90 lg:mt-0">{t('startShopping')} <ArrowRight className="size-4" /></Link></div></section>
       </main>
     </div>
   )

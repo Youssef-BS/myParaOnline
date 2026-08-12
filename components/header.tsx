@@ -25,9 +25,9 @@ export function Header() {
     <div className="bg-accent px-4 py-2 text-center text-[11px] font-bold uppercase tracking-[0.14em] text-accent-foreground">{t('freeDelivery')}</div>
     <header className="sticky top-0 z-50 border-b border-border/80 bg-background/90 backdrop-blur-xl">
       <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-5 px-5 sm:px-8">
-        <Link href="/" className="flex items-center gap-3" aria-label="HealthHub home">
-          <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground"><span className="font-serif text-xl font-bold">H</span></span>
-          <span className="hidden font-serif text-2xl font-bold tracking-[-0.04em] sm:inline">HealthHub</span>
+        <Link href="/" className="flex items-center gap-3" aria-label="myParaOnline.tn home">
+          <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground"><span className="font-serif text-xl font-bold">M</span></span>
+          <span className="hidden font-serif text-2xl font-bold tracking-[-0.04em] sm:inline">myParaOnline.tn</span>
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
           {navLinks.map((link, index) => (

@@ -10,8 +10,8 @@ const dmSerif = DM_Serif_Display({ subsets: ['latin'], weight: '400', variable: 
 const notoArabic = Noto_Naskh_Arabic({ subsets: ['arabic'], weight: ['400', '700'], variable: '--font-noto-arabic' })
 
 export const metadata: Metadata = {
-  title: 'Mypara Online — Everyday care, made simple',
-  description: 'Mypara Online brings thoughtfully chosen parapharmacy essentials for skin, body, and family wellbeing.',
+  title: 'myParaOnline.tn — Everyday care, made simple',
+  description: 'myParaOnline.tn brings thoughtfully chosen parapharmacy essentials for skin, body, and family wellbeing.',
   generator: 'v0.app',
 }
 

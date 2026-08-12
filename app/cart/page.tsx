@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Header } from '@/components/header'
-import { getCart, updateCartQuantity, removeFromCart, onCartChange, type CartItem } from '@/lib/cart'
+import { getCart, updateCartQuantity, removeFromCart, onCartChange, DELIVERY_FEE, type CartItem } from '@/lib/cart'
 import { Trash2, Plus, Minus, ArrowRight } from 'lucide-react'
 import { formatPrice } from '@/lib/format'
 
@@ -18,10 +18,11 @@ export default function CartPage() {
     return onCartChange(() => setCartItems(getCart()))
   }, [])
 
-  const total = cartItems.reduce(
+  const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   )
+  const total = subtotal + (cartItems.length > 0 ? DELIVERY_FEE : 0)
 
   if (!loaded) {
     return (
@@ -123,6 +124,17 @@ export default function CartPage() {
               <div className="lg:col-span-1">
                 <div className="rounded-lg border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 sticky top-24">
                   <h2 className="text-xl font-bold mb-6">Order Summary</h2>
+
+                  <div className="space-y-3 mb-6 pb-6 border-b border-gray-200 dark:border-slate-700">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600 dark:text-slate-400">Subtotal</span>
+                      <span className="font-semibold">{formatPrice(subtotal)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600 dark:text-slate-400">Delivery (livraison)</span>
+                      <span className="font-semibold">{formatPrice(DELIVERY_FEE)}</span>
+                    </div>
+                  </div>
 
                   <div className="flex justify-between mb-6 text-lg">
                     <span className="font-bold">Total</span>
