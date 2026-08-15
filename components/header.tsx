@@ -41,7 +41,17 @@ export function Header() {
   ]
 
   return <>
-    <div className="bg-accent px-3 py-2 text-center text-[10px] font-bold uppercase tracking-[0.14em] text-accent-foreground sm:px-4 sm:text-[11px]">{t('freeDelivery')}</div>
+    <div className="overflow-hidden bg-accent text-accent-foreground">
+      <div className="promo-marquee flex min-w-max items-center gap-8 whitespace-nowrap px-3 py-2 text-center text-[10px] font-bold uppercase tracking-[0.14em] sm:px-4 sm:text-[11px]">
+        <span>{t('freeDelivery')}</span>
+        <span aria-hidden="true">•</span>
+        <span>{t('freeDelivery')}</span>
+        <span aria-hidden="true">•</span>
+        <span>{t('freeDelivery')}</span>
+        <span aria-hidden="true">•</span>
+        <span>{t('freeDelivery')}</span>
+      </div>
+    </div>
     <header className="sticky top-0 z-50 border-b border-border/80 bg-background/90 backdrop-blur-xl">
       <div className="mx-auto flex h-[4.2rem] max-w-7xl items-center justify-between gap-2 px-3 sm:h-[4.5rem] sm:gap-5 sm:px-8">
         <Link href="/" className="flex items-center gap-2 sm:gap-3" aria-label="myParaOnline.tn home">
