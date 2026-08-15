@@ -61,3 +61,21 @@ body { @apply bg-background text-foreground font-sans; }
 html[dir='rtl'] body { font-family: var(--font-noto-arabic), Arial, var(--font-geist), sans-serif; }
 html[dir='rtl'] .font-serif { font-family: var(--font-noto-arabic), Arial, sans-serif; }
 button, a { -webkit-tap-highlight-color: transparent; }
+
+@keyframes promo-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.promo-marquee {
+  animation: promo-marquee 18s linear infinite;
+  width: max-content;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .promo-marquee {
+    animation: none;
+    transform: none;
+    width: auto;
+  }
+}
