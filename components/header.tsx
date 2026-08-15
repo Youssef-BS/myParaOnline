@@ -22,21 +22,21 @@ export function Header() {
   ]
 
   return <>
-    <div className="bg-accent px-4 py-2 text-center text-[11px] font-bold uppercase tracking-[0.14em] text-accent-foreground">{t('freeDelivery')}</div>
+    <div className="bg-accent px-3 py-2 text-center text-[10px] font-bold uppercase tracking-[0.14em] text-accent-foreground sm:px-4 sm:text-[11px]">{t('freeDelivery')}</div>
     <header className="sticky top-0 z-50 border-b border-border/80 bg-background/90 backdrop-blur-xl">
-      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-5 px-5 sm:px-8">
-        <Link href="/" className="flex items-center gap-3" aria-label="myParaOnline.tn home">
-          <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground"><span className="font-serif text-xl font-bold">M</span></span>
-          <span className="hidden font-serif text-2xl font-bold tracking-[-0.04em] sm:inline">myParaOnline.tn</span>
+      <div className="mx-auto flex h-[4.2rem] max-w-7xl items-center justify-between gap-2 px-3 sm:h-[4.5rem] sm:gap-5 sm:px-8">
+        <Link href="/" className="flex items-center gap-2 sm:gap-3" aria-label="myParaOnline.tn home">
+          <span className="flex size-8 items-center justify-center rounded-xl bg-primary text-primary-foreground sm:size-9"><span className="font-serif text-lg font-bold sm:text-xl">M</span></span>
+          <span className="hidden font-serif text-xl font-bold tracking-[-0.04em] sm:inline sm:text-2xl">myParaOnline.tn</span>
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
           {navLinks.map((link, index) => (
             <Link key={`${link.href}-${index}`} href={link.href} className="text-sm font-semibold text-muted-foreground transition hover:text-foreground">{link.label}</Link>
           ))}
         </nav>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 sm:gap-1.5">
           <label className="sr-only" htmlFor="language-select">{t('language')}</label>
-          <select id="language-select" value={locale} onChange={(event) => setLocale(event.target.value as 'en' | 'fr' | 'ar')} className="h-9 rounded-full border border-border bg-background px-2 text-xs font-semibold text-foreground outline-none focus:ring-2 focus:ring-primary" aria-label={t('language')}>
+          <select id="language-select" value={locale} onChange={(event) => setLocale(event.target.value as 'en' | 'fr' | 'ar')} className="h-8 rounded-full border border-border bg-background px-1.5 text-[10px] font-semibold text-foreground outline-none focus:ring-2 focus:ring-primary sm:h-9 sm:px-2 sm:text-xs" aria-label={t('language')}>
             <option value="en">EN</option>
             <option value="fr">FR</option>
             <option value="ar">ع</option>

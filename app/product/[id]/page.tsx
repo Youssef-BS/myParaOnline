@@ -109,39 +109,41 @@ export default function ProductDetailPage() {
     <>
       <Header />
       <main className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-950 dark:to-slate-900">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
           {/* Breadcrumb */}
-          <nav className="mb-8 flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400">
-            <Link href="/" className="hover:text-green-600 transition">Home</Link>
+          <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm text-gray-500 dark:text-slate-400">
+            <Link href="/" className="transition hover:text-green-600">Home</Link>
             <ChevronRight size={14} />
             {product.categories ? (
               <>
-                <Link href={`/category/${product.categories.slug}`} className="hover:text-green-600 transition">
+                <Link href={`/category/${product.categories.slug}`} className="transition hover:text-green-600">
                   {product.categories.name}
                 </Link>
                 <ChevronRight size={14} />
               </>
             ) : null}
-            <span className="text-gray-900 dark:text-white font-medium truncate">{product.name}</span>
+            <span className="max-w-[12rem] truncate font-medium text-gray-900 dark:text-white sm:max-w-none">{product.name}</span>
           </nav>
 
-          <div className="grid gap-10 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-2 md:gap-10">
             {/* Image */}
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100 dark:bg-slate-800">
-              {product.image_url ? (
-                <Image
-                  src={product.image_url}
-                  alt={product.name}
-                  width={800}
-                  height={800}
-                  className="w-full h-full object-cover"
-                  priority
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <span className="font-serif text-8xl text-primary/20">M</span>
-                </div>
-              )}
+            <div className="overflow-hidden rounded-2xl bg-gray-100 dark:bg-slate-800">
+              <div className="aspect-square">
+                {product.image_url ? (
+                  <Image
+                    src={product.image_url}
+                    alt={product.name}
+                    width={800}
+                    height={800}
+                    className="h-full w-full object-cover"
+                    priority
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center">
+                    <span className="font-serif text-8xl text-primary/20">M</span>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Details */}
@@ -151,17 +153,17 @@ export default function ProductDetailPage() {
                   {product.categories.name}
                 </p>
               )}
-              <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
+              <h1 className="mb-4 text-3xl font-bold sm:text-4xl">{product.name}</h1>
               {hasDiscount(product) ? (
-                <div className="flex items-baseline gap-3 mb-6">
+                <div className="mb-6 flex flex-wrap items-baseline gap-3">
                   <p className="text-3xl font-bold text-green-600">{formatPrice(getEffectivePrice(product))}</p>
-                  <p className="text-lg text-gray-400 dark:text-slate-500 line-through">{formatPrice(product.price)}</p>
-                  <span className="px-2 py-1 rounded-full bg-green-100 dark:bg-green-950/30 text-green-700 dark:text-green-400 text-xs font-bold">
+                  <p className="text-lg text-gray-400 line-through dark:text-slate-500">{formatPrice(product.price)}</p>
+                  <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-bold text-green-700 dark:bg-green-950/30 dark:text-green-400">
                     -{Math.round((1 - getEffectivePrice(product) / product.price) * 100)}%
                   </span>
                 </div>
               ) : (
-                <p className="text-3xl font-bold text-green-600 mb-6">{formatPrice(product.price)}</p>
+                <p className="mb-6 text-3xl font-bold text-green-600 sm:text-4xl">{formatPrice(product.price)}</p>
               )}
 
               <div className="mb-6 flex items-center gap-2 text-sm font-semibold">
@@ -177,19 +179,19 @@ export default function ProductDetailPage() {
               </div>
 
               {product.description && (
-                <p className="text-gray-600 dark:text-slate-400 leading-relaxed mb-8">
+                <p className="mb-8 leading-relaxed text-gray-600 dark:text-slate-400">
                   {product.description}
                 </p>
               )}
 
               {inStock && (
-                <div className="mb-6 flex items-center gap-4">
+                <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
                   <span className="text-sm font-medium">Quantity</span>
                   <div className="flex items-center gap-2 rounded-lg border border-gray-300 dark:border-slate-600">
                     <button
                       type="button"
                       onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                      className="p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-l-lg transition"
+                      className="rounded-l-lg p-2 transition hover:bg-gray-100 dark:hover:bg-slate-800"
                       aria-label="Decrease quantity"
                     >
                       <Minus size={16} />
@@ -198,7 +200,7 @@ export default function ProductDetailPage() {
                     <button
                       type="button"
                       onClick={() => setQuantity((q) => Math.min(product.stock, q + 1))}
-                      className="p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-r-lg transition"
+                      className="rounded-r-lg p-2 transition hover:bg-gray-100 dark:hover:bg-slate-800"
                       aria-label="Increase quantity"
                     >
                       <Plus size={16} />
@@ -211,7 +213,7 @@ export default function ProductDetailPage() {
                 type="button"
                 onClick={handleAddToCart}
                 disabled={!inStock || isAdding}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 px-8 py-3 font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
                 <ShoppingBag size={18} />
                 {inStock ? (isAdding ? 'Adding…' : 'Add to Cart') : 'Out of Stock'}
