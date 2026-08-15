@@ -41,14 +41,20 @@ export function Header() {
   ]
 
   return <>
-    <div className="overflow-hidden bg-accent text-accent-foreground">
-      <div className="promo-marquee flex min-w-max items-center gap-8 whitespace-nowrap px-3 py-2 text-center text-[10px] font-bold uppercase tracking-[0.14em] sm:px-4 sm:text-[11px]">
+    <div className="promo-shell border-b border-border/80 bg-accent text-accent-foreground">
+      <div className="promo-track flex min-w-max items-center gap-10 whitespace-nowrap px-3 py-2 text-center text-[10px] font-medium uppercase tracking-[0.18em] sm:px-4 sm:text-[11px]">
         <span>{t('freeDelivery')}</span>
-        <span aria-hidden="true">•</span>
+        <span aria-hidden="true">·</span>
         <span>{t('freeDelivery')}</span>
-        <span aria-hidden="true">•</span>
+        <span aria-hidden="true">·</span>
         <span>{t('freeDelivery')}</span>
-        <span aria-hidden="true">•</span>
+        <span aria-hidden="true">·</span>
+        <span>{t('freeDelivery')}</span>
+        <span aria-hidden="true">·</span>
+        <span>{t('freeDelivery')}</span>
+        <span aria-hidden="true">·</span>
+        <span>{t('freeDelivery')}</span>
+        <span aria-hidden="true">·</span>
         <span>{t('freeDelivery')}</span>
       </div>
     </div>
