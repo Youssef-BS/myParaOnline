@@ -8,17 +8,20 @@ import { ProductCard } from '@/components/product-card'
 import { addToCart } from '@/lib/cart'
 import { getEffectivePrice } from '@/lib/format'
 import { useToast } from '@/components/toast-provider'
-import { useSearchParams } from 'next/navigation'
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<any[]>([])
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [products, setProducts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const searchParams = useSearchParams()
+  const [searchTerm, setSearchTerm] = useState('')
   const supabase = createClient()
   const { showToast } = useToast()
-  const searchTerm = (searchParams.get('q') ?? '').trim().toLowerCase()
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    setSearchTerm((params.get('q') ?? '').trim().toLowerCase())
+  }, [])
 
   useEffect(() => {
     const fetchData = async () => {

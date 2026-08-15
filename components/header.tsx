@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ShoppingCart, Search, Menu, X, Heart } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from '@/components/locale-provider'
 import { getWishlist, onWishlistChange } from '@/lib/wishlist'
 
@@ -15,7 +15,6 @@ export function Header() {
   const [searchValue, setSearchValue] = useState('')
   const pathname = usePathname()
   const router = useRouter()
-  const searchParams = useSearchParams()
 
   useEffect(() => {
     setMenuOpen(false)
@@ -27,11 +26,6 @@ export function Header() {
     syncWishlistCount()
     return onWishlistChange(syncWishlistCount)
   }, [])
-
-  useEffect(() => {
-    const next = searchParams.get('q') ?? ''
-    setSearchValue(next)
-  }, [searchParams])
 
   const handleSearch = () => {
     const trimmed = searchValue.trim()
