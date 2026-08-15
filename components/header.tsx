@@ -85,7 +85,7 @@ export function Header() {
               </div>
             )}
           </div>
-          <button type="button" onClick={() => router.push('/categories')} className="rounded-full p-2.5 text-muted-foreground transition hover:bg-muted hover:text-foreground sm:hidden" aria-label="Open categories">
+          <button type="button" onClick={() => setSearchOpen((open) => !open)} className="rounded-full p-2.5 text-muted-foreground transition hover:bg-muted hover:text-foreground sm:hidden" aria-label="Search products">
             <Search className="size-5" />
           </button>
           <Link href="/wishlist" className="relative rounded-full p-2.5 text-muted-foreground transition hover:bg-muted hover:text-foreground" aria-label="Wishlist">
@@ -111,6 +111,27 @@ export function Header() {
           </button>
         </div>
       </div>
+      {searchOpen && (
+        <div className="border-t border-border/80 bg-background px-3 pb-3 pt-2 sm:hidden">
+          <div className="flex items-center gap-2 rounded-full border border-border bg-muted/40 px-3 py-2.5">
+            <Search className="size-4 text-muted-foreground" />
+            <input
+              value={searchValue}
+              onChange={(event) => setSearchValue(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') handleSearch()
+              }}
+              placeholder="Search products"
+              className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+              aria-label="Search products"
+              autoFocus
+            />
+          </div>
+          <button type="button" onClick={handleSearch} className="mt-2 w-full rounded-full bg-primary px-3 py-2.5 text-sm font-bold text-primary-foreground transition hover:opacity-90">
+            Search
+          </button>
+        </div>
+      )}
       {menuOpen && (
         <nav className="border-t border-border/80 bg-background px-5 py-4 md:hidden">
           <div className="flex flex-col gap-1">
