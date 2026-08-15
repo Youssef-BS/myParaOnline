@@ -39,82 +39,84 @@ export default function CartPage() {
     <>
       <Header />
       <main className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-950 dark:to-slate-900">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <h1 className="text-3xl font-bold mb-8">Shopping Cart</h1>
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+          <h1 className="mb-6 text-3xl font-bold sm:text-4xl">Shopping Cart</h1>
 
           {cartItems.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-600 dark:text-slate-400 mb-6">
+            <div className="py-12 text-center">
+              <p className="mb-6 text-gray-600 dark:text-slate-400">
                 Your cart is empty
               </p>
               <Link
                 href="/"
-                className="inline-block px-6 py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition"
+                className="inline-block rounded-lg bg-green-600 px-6 py-3 font-semibold text-white transition hover:bg-green-700"
               >
                 Continue Shopping
               </Link>
             </div>
           ) : (
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid gap-8 lg:grid-cols-3">
               {/* Items */}
               <div className="lg:col-span-2">
                 <div className="space-y-4">
                   {cartItems.map((item) => (
                     <div
                       key={item.product_id}
-                      className="flex gap-4 p-4 rounded-lg border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900"
+                      className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900 sm:flex-row sm:items-center"
                     >
                       {/* Product Image */}
-                      <div className="w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 dark:bg-slate-800 overflow-hidden">
+                      <div className="h-24 w-full flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-slate-800 sm:h-20 sm:w-20">
                         {item.image_url ? (
                           <Image
                             src={item.image_url}
                             alt={item.name}
                             width={80}
                             height={80}
-                            className="w-full h-full object-cover"
+                            className="h-full w-full object-cover"
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center">
+                          <div className="flex h-full w-full items-center justify-center">
                             <span className="text-xs text-gray-400">No image</span>
                           </div>
                         )}
                       </div>
 
                       {/* Product Details */}
-                      <div className="flex-1">
-                        <h3 className="font-semibold mb-1">{item.name}</h3>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="mb-1 font-semibold">{item.name}</h3>
                         <p className="text-lg font-bold">
                           {formatPrice(item.price * item.quantity)}
                         </p>
                       </div>
 
                       {/* Quantity Controls */}
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center justify-between gap-3 sm:justify-center">
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => updateCartQuantity(item.product_id, item.quantity - 1)}
+                            className="rounded p-1 transition hover:bg-gray-100 dark:hover:bg-slate-800"
+                          >
+                            <Minus size={18} />
+                          </button>
+                          <span className="w-8 text-center font-semibold">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() => updateCartQuantity(item.product_id, item.quantity + 1)}
+                            className="rounded p-1 transition hover:bg-gray-100 dark:hover:bg-slate-800"
+                          >
+                            <Plus size={18} />
+                          </button>
+                        </div>
+
                         <button
-                          onClick={() => updateCartQuantity(item.product_id, item.quantity - 1)}
-                          className="p-1 hover:bg-gray-100 dark:hover:bg-slate-800 rounded transition"
+                          onClick={() => removeFromCart(item.product_id)}
+                          className="rounded p-2 text-red-600 transition hover:bg-red-50 dark:hover:bg-red-950/20"
+                          aria-label={`Remove ${item.name} from cart`}
                         >
-                          <Minus size={18} />
-                        </button>
-                        <span className="w-8 text-center font-semibold">
-                          {item.quantity}
-                        </span>
-                        <button
-                          onClick={() => updateCartQuantity(item.product_id, item.quantity + 1)}
-                          className="p-1 hover:bg-gray-100 dark:hover:bg-slate-800 rounded transition"
-                        >
-                          <Plus size={18} />
+                          <Trash2 size={18} />
                         </button>
                       </div>
-
-                      {/* Remove */}
-                      <button
-                        onClick={() => removeFromCart(item.product_id)}
-                        className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 rounded transition"
-                      >
-                        <Trash2 size={18} />
-                      </button>
                     </div>
                   ))}
                 </div>
@@ -122,28 +124,28 @@ export default function CartPage() {
 
               {/* Summary */}
               <div className="lg:col-span-1">
-                <div className="rounded-lg border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 sticky top-24">
-                  <h2 className="text-xl font-bold mb-6">Order Summary</h2>
+                <div className="sticky top-24 rounded-lg border border-gray-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-900 sm:p-6">
+                  <h2 className="mb-6 text-xl font-bold">Order Summary</h2>
 
-                  <div className="space-y-3 mb-6 pb-6 border-b border-gray-200 dark:border-slate-700">
-                    <div className="flex justify-between">
+                  <div className="mb-6 space-y-3 border-b border-gray-200 pb-6 dark:border-slate-700">
+                    <div className="flex justify-between gap-4">
                       <span className="text-gray-600 dark:text-slate-400">Subtotal</span>
                       <span className="font-semibold">{formatPrice(subtotal)}</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-4">
                       <span className="text-gray-600 dark:text-slate-400">Delivery (livraison)</span>
                       <span className="font-semibold">{formatPrice(DELIVERY_FEE)}</span>
                     </div>
                   </div>
 
-                  <div className="flex justify-between mb-6 text-lg">
+                  <div className="mb-6 flex justify-between gap-4 text-lg">
                     <span className="font-bold">Total</span>
                     <span className="font-bold text-green-600">{formatPrice(total)}</span>
                   </div>
 
                   <Link
                     href="/checkout"
-                    className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition"
+                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 py-3 font-semibold text-white transition hover:bg-green-700"
                   >
                     Proceed to Checkout
                     <ArrowRight size={18} />
@@ -151,7 +153,7 @@ export default function CartPage() {
 
                   <Link
                     href="/"
-                    className="w-full mt-3 text-center py-3 rounded-lg border border-gray-300 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-800 transition"
+                    className="mt-3 flex w-full items-center justify-center rounded-lg border border-gray-300 py-3 text-center transition hover:bg-gray-50 dark:border-slate-600 dark:hover:bg-slate-800"
                   >
                     Continue Shopping
                   </Link>

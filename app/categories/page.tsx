@@ -72,19 +72,19 @@ export default function CategoriesPage() {
     <>
       <Header />
       <main className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-950 dark:to-slate-900">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <h1 className="text-4xl font-bold mb-8">Product Categories</h1>
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+          <h1 className="mb-6 text-3xl font-bold sm:text-4xl">Product Categories</h1>
 
           {/* Category Filter */}
           {categories.length > 0 && (
             <div className="mb-8">
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 <button
                   onClick={() => setSelectedCategory(null)}
-                  className={`px-6 py-2 rounded-lg font-medium transition ${
+                  className={`rounded-lg px-4 py-2.5 text-sm font-medium transition sm:px-6 ${
                     selectedCategory === null
                       ? 'bg-green-600 text-white'
-                      : 'bg-gray-200 dark:bg-slate-700 hover:bg-gray-300'
+                      : 'bg-gray-200 hover:bg-gray-300 dark:bg-slate-700 dark:hover:bg-slate-600'
                   }`}
                 >
                   All Products
@@ -93,17 +93,17 @@ export default function CategoriesPage() {
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${
+                    className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition sm:px-4 ${
                       selectedCategory === category.id
                         ? 'bg-green-600 text-white'
-                        : 'bg-gray-200 dark:bg-slate-700 hover:bg-gray-300'
+                        : 'bg-gray-200 hover:bg-gray-300 dark:bg-slate-700 dark:hover:bg-slate-600'
                     }`}
                   >
                     {category.image_url && (
                       <img
                         src={category.image_url}
                         alt=""
-                        className="w-6 h-6 rounded-full object-cover"
+                        className="h-6 w-6 rounded-full object-cover"
                       />
                     )}
                     {category.name}
@@ -115,16 +115,16 @@ export default function CategoriesPage() {
 
           {/* Products Grid */}
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
               {[...Array(8)].map((_, i) => (
                 <div
                   key={i}
-                  className="h-64 rounded-xl bg-gray-200 dark:bg-slate-700 animate-pulse"
+                  className="h-64 rounded-xl bg-gray-200 animate-pulse dark:bg-slate-700"
                 />
               ))}
             </div>
           ) : products.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
               {products.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -138,7 +138,7 @@ export default function CategoriesPage() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
+            <div className="py-12 text-center">
               <p className="text-gray-600 dark:text-slate-400">
                 No products found in this category
               </p>
