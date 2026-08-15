@@ -62,20 +62,53 @@ html[dir='rtl'] body { font-family: var(--font-noto-arabic), Arial, var(--font-g
 html[dir='rtl'] .font-serif { font-family: var(--font-noto-arabic), Arial, sans-serif; }
 button, a { -webkit-tap-highlight-color: transparent; }
 
-@keyframes promo-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+.promo-shell {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, rgba(237, 171, 99, 0.96), rgba(233, 154, 70, 0.96), rgba(237, 171, 99, 0.96));
 }
 
-.promo-marquee {
-  animation: promo-marquee 18s linear infinite;
-  width: max-content;
+.promo-shell::before,
+.promo-shell::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 72px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.promo-shell::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(237, 171, 99, 0.96), rgba(237, 171, 99, 0));
+}
+
+.promo-shell::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(237, 171, 99, 0.96), rgba(237, 171, 99, 0));
+}
+
+@keyframes promo-marquee {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.promo-track {
+  position: relative;
+  z-index: 0;
+  animation: promo-marquee 30s linear infinite;
+  will-change: transform;
+  opacity: 0.9;
+}
+
+.promo-track:hover {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .promo-marquee {
+  .promo-track {
     animation: none;
     transform: none;
-    width: auto;
   }
 }
