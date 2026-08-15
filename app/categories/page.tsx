@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Header } from '@/components/header'
 import { createClient } from '@/lib/supabase'
 import Link from 'next/link'
@@ -8,14 +8,17 @@ import { ProductCard } from '@/components/product-card'
 import { addToCart } from '@/lib/cart'
 import { getEffectivePrice } from '@/lib/format'
 import { useToast } from '@/components/toast-provider'
+import { useSearchParams } from 'next/navigation'
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<any[]>([])
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [products, setProducts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+  const searchParams = useSearchParams()
   const supabase = createClient()
   const { showToast } = useToast()
+  const searchTerm = (searchParams.get('q') ?? '').trim().toLowerCase()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,28 +41,31 @@ export default function CategoriesPage() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      if (!selectedCategory) {
-        // Fetch all active products
-        const { data: productsData } = await supabase
-          .from('products')
-          .select('*')
-          .eq('is_active', true)
+      let query = supabase
+        .from('products')
+        .select('*')
+        .eq('is_active', true)
 
-        setProducts(productsData || [])
-      } else {
-        // Fetch products for selected category
-        const { data: productsData } = await supabase
-          .from('products')
-          .select('*')
-          .eq('is_active', true)
-          .eq('category_id', selectedCategory)
-
-        setProducts(productsData || [])
+      if (selectedCategory) {
+        query = query.eq('category_id', selectedCategory)
       }
+
+      const { data: productsData } = await query
+      setProducts(productsData || [])
     }
 
     fetchProducts()
   }, [selectedCategory, supabase])
+
+  const filteredProducts = useMemo(() => {
+    if (!searchTerm) return products
+
+    return products.filter((product) => {
+      const name = String(product.name ?? '').toLowerCase()
+      const categoryName = String(product.category_name ?? '').toLowerCase()
+      return name.includes(searchTerm) || categoryName.includes(searchTerm)
+    })
+  }, [products, searchTerm])
 
   const handleAddToCart = (productId: string) => {
     const product = products.find((p) => p.id === productId)
@@ -73,7 +79,15 @@ export default function CategoriesPage() {
       <Header />
       <main className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-950 dark:to-slate-900">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-          <h1 className="mb-6 text-3xl font-bold sm:text-4xl">Product Categories</h1>
+          <h1 className="mb-6 text-3xl font-bold sm:text-4xl">
+            {searchTerm ? `Search results for “${searchTerm}”` : 'Product Categories'}
+          </h1>
+
+          {searchTerm && (
+            <div className="mb-6 rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3 text-sm text-primary">
+              Showing {filteredProducts.length} result{filteredProducts.length === 1 ? '' : 's'} for “{searchTerm}”
+            </div>
+          )}
 
           {/* Category Filter */}
           {categories.length > 0 && (
@@ -123,9 +137,9 @@ export default function CategoriesPage() {
                 />
               ))}
             </div>
-          ) : products.length > 0 ? (
+          ) : filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
                 <ProductCard
                   key={product.id}
                   id={product.id}
@@ -140,7 +154,7 @@ export default function CategoriesPage() {
           ) : (
             <div className="py-12 text-center">
               <p className="text-gray-600 dark:text-slate-400">
-                No products found in this category
+                {searchTerm ? 'No products match your search.' : 'No products found in this category'}
               </p>
             </div>
           )}
