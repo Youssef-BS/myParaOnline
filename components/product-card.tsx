@@ -3,16 +3,31 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Heart, ShoppingBag } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { formatPrice, hasDiscount, getEffectivePrice } from '@/lib/format'
 import { useLocale } from '@/components/locale-provider'
+import { isWishlisted, onWishlistChange, toggleWishlist } from '@/lib/wishlist'
 
 interface ProductCardProps { id: string; name: string; price: number; discount_price?: number | null; image_url?: string; category_name?: string; onAddToCart?: (id: string) => void | Promise<void> }
 
 export function ProductCard({ id, name, price, discount_price, image_url, category_name, onAddToCart }: ProductCardProps) {
-  const [isWishlisted, setIsWishlisted] = useState(false)
+  const [isSaved, setIsSaved] = useState(false)
   const { t } = useLocale()
   const [isAdding, setIsAdding] = useState(false)
+
+  useEffect(() => {
+    setIsSaved(isWishlisted(id))
+
+    return onWishlistChange(() => {
+      setIsSaved(isWishlisted(id))
+    })
+  }, [id])
+
+  const handleToggleWishlist = () => {
+    const nextSaved = toggleWishlist(id)
+    setIsSaved(nextSaved)
+  }
+
   const handleAddToCart = async () => { setIsAdding(true); await onAddToCart?.(id); setIsAdding(false) }
   const onSale = hasDiscount({ price, discount_price })
   const effectivePrice = getEffectivePrice({ price, discount_price })
@@ -21,7 +36,7 @@ export function ProductCard({ id, name, price, discount_price, image_url, catego
   return <article className="group overflow-hidden rounded-3xl border border-border bg-card transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl">
     <div className="relative aspect-[4/4.2] overflow-hidden bg-muted">
       {image_url ? <Image src={image_url} alt={name} fill className="object-cover transition duration-500 group-hover:scale-105" /> : <div className="flex size-full items-center justify-center bg-primary/5"><span className="font-serif text-5xl text-primary/20">M</span></div>}
-      <button type="button" onClick={() => setIsWishlisted(!isWishlisted)} className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full bg-background/90 text-muted-foreground shadow-sm backdrop-blur transition hover:text-accent" aria-label={isWishlisted ? t('removeWishlist') : t('addWishlist')}><Heart className={`size-4 ${isWishlisted ? 'fill-accent text-accent' : ''}`} /></button>
+      <button type="button" onClick={handleToggleWishlist} className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full bg-background/90 text-muted-foreground shadow-sm backdrop-blur transition hover:text-accent" aria-label={isSaved ? t('removeWishlist') : t('addWishlist')}><Heart className={`size-4 ${isSaved ? 'fill-accent text-accent' : ''}`} /></button>
       {onSale ? <span className="absolute bottom-3 left-3 rounded-full bg-accent px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-accent-foreground">-{discountPercent}%</span> : <span className="absolute bottom-3 left-3 rounded-full bg-background/90 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-primary backdrop-blur">{t('curated')}</span>}
     </div>
     <div className="p-4 sm:p-5">

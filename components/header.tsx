@@ -1,19 +1,27 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingCart, Search, Menu, X } from 'lucide-react'
+import { ShoppingCart, Search, Menu, X, Heart } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useLocale } from '@/components/locale-provider'
+import { getWishlist, onWishlistChange } from '@/lib/wishlist'
 
 export function Header() {
   const { locale, setLocale, t } = useLocale()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [wishlistCount, setWishlistCount] = useState(0)
   const pathname = usePathname()
 
   useEffect(() => {
     setMenuOpen(false)
   }, [pathname])
+
+  useEffect(() => {
+    const syncWishlistCount = () => setWishlistCount(getWishlist().length)
+    syncWishlistCount()
+    return onWishlistChange(syncWishlistCount)
+  }, [])
 
   const navLinks = [
     { href: '/categories', label: t('shop') },
@@ -42,6 +50,14 @@ export function Header() {
             <option value="ar">ع</option>
           </select>
           <button type="button" className="hidden rounded-full p-2.5 text-muted-foreground transition hover:bg-muted hover:text-foreground sm:block" aria-label="Search"><Search className="size-5" /></button>
+          <Link href="/wishlist" className="relative rounded-full p-2.5 text-muted-foreground transition hover:bg-muted hover:text-foreground" aria-label="Wishlist">
+            <Heart className="size-5" />
+            {wishlistCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex min-h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[9px] font-bold text-accent-foreground">
+                {wishlistCount > 9 ? '9+' : wishlistCount}
+              </span>
+            )}
+          </Link>
           <Link href="/cart" className="relative rounded-full p-2.5 text-muted-foreground transition hover:bg-muted hover:text-foreground" aria-label={t('cart')}>
             <ShoppingCart className="size-5" />
             <span className="absolute right-1.5 top-1.5 size-1.5 rounded-full bg-accent" />
