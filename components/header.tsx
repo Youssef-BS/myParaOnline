@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ShoppingCart, Search, Menu, X, Heart } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useLocale } from '@/components/locale-provider'
 import { getWishlist, onWishlistChange } from '@/lib/wishlist'
 
@@ -11,10 +11,15 @@ export function Header() {
   const { locale, setLocale, t } = useLocale()
   const [menuOpen, setMenuOpen] = useState(false)
   const [wishlistCount, setWishlistCount] = useState(0)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
   const pathname = usePathname()
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     setMenuOpen(false)
+    setSearchOpen(false)
   }, [pathname])
 
   useEffect(() => {
@@ -22,6 +27,18 @@ export function Header() {
     syncWishlistCount()
     return onWishlistChange(syncWishlistCount)
   }, [])
+
+  useEffect(() => {
+    const next = searchParams.get('q') ?? ''
+    setSearchValue(next)
+  }, [searchParams])
+
+  const handleSearch = () => {
+    const trimmed = searchValue.trim()
+    const nextUrl = trimmed ? `/categories?q=${encodeURIComponent(trimmed)}` : '/categories'
+    router.push(nextUrl)
+    setSearchOpen(false)
+  }
 
   const navLinks = [
     { href: '/categories', label: t('shop') },
@@ -49,7 +66,34 @@ export function Header() {
             <option value="fr">FR</option>
             <option value="ar">ع</option>
           </select>
-          <button type="button" className="hidden rounded-full p-2.5 text-muted-foreground transition hover:bg-muted hover:text-foreground sm:block" aria-label="Search"><Search className="size-5" /></button>
+          <div className="relative hidden items-center sm:flex">
+            <button type="button" onClick={() => setSearchOpen((open) => !open)} className="rounded-full p-2.5 text-muted-foreground transition hover:bg-muted hover:text-foreground" aria-label="Search">
+              <Search className="size-5" />
+            </button>
+            {searchOpen && (
+              <div className="absolute right-0 top-full z-50 mt-3 w-72 rounded-2xl border border-border bg-background p-2 shadow-lg">
+                <div className="flex items-center gap-2 rounded-full border border-border bg-muted/40 px-3 py-2">
+                  <Search className="size-4 text-muted-foreground" />
+                  <input
+                    value={searchValue}
+                    onChange={(event) => setSearchValue(event.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter') handleSearch()
+                    }}
+                    placeholder="Search products"
+                    className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+                    aria-label="Search products"
+                  />
+                </div>
+                <button type="button" onClick={handleSearch} className="mt-2 w-full rounded-full bg-primary px-3 py-2 text-xs font-bold text-primary-foreground transition hover:opacity-90">
+                  Search
+                </button>
+              </div>
+            )}
+          </div>
+          <button type="button" onClick={() => router.push('/categories')} className="rounded-full p-2.5 text-muted-foreground transition hover:bg-muted hover:text-foreground sm:hidden" aria-label="Open categories">
+            <Search className="size-5" />
+          </button>
           <Link href="/wishlist" className="relative rounded-full p-2.5 text-muted-foreground transition hover:bg-muted hover:text-foreground" aria-label="Wishlist">
             <Heart className="size-5" />
             {wishlistCount > 0 && (
