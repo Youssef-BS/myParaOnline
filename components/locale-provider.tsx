@@ -13,7 +13,7 @@ type LocaleContextValue = {
 
 const translations = {
   en: {
-    shop: 'Shop', categories: 'Categories', approach: 'Our approach', cart: 'Shopping cart', language: 'Language',
+    shop: 'Shop', categories: 'Categories', approach: 'Our approach', trackOrder: 'Track order', cart: 'Shopping cart', language: 'Language',
     curated: 'Curated', essentials: 'Health essentials', add: 'Add', adding: 'Adding', removeWishlist: 'Remove from wishlist', addWishlist: 'Add to wishlist', addedToCart: 'Added to cart',
     heroEyebrow: 'Carefully chosen care', heroTitle: 'Better care for every day.', heroDescription: 'Clinically considered essentials for skin, body, and family wellbeing — delivered with care from people who know health.',
     shopCollection: 'Shop the collection', ourApproach: 'Our approach', startHere: 'Start here', shopByNeed: 'Shop by need', viewAll: 'View all', theEdit: 'The edit', everydayEssentials: 'Everyday essentials', exploreProducts: 'Explore products',
@@ -21,7 +21,7 @@ const translations = {
     freeDelivery: 'Thoughtful care, delivered', fastDelivery: 'Fast, careful delivery', fromDoor: 'From our door to yours', quality: 'Quality you can trust', selected: 'Selected with intention', guidance: 'Guidance when you need it', support: 'Simple, human support', formula: 'Thoughtful formulas, never overwhelming.', trustedBrands: 'Trusted brands, clearly explained.', joinMyParaOnline: 'Join myParaOnline.tn for considered products, helpful guidance, and a little more confidence in your routine.',
   },
   fr: {
-    shop: 'Boutique', categories: 'Catégories', approach: 'Notre approche', cart: 'Panier', language: 'Langue',
+    shop: 'Boutique', categories: 'Catégories', approach: 'Notre approche', trackOrder: 'Suivre la commande', cart: 'Panier', language: 'Langue',
     curated: 'Sélection', essentials: 'Essentiels santé', add: 'Ajouter', adding: 'Ajout', removeWishlist: 'Retirer des favoris', addWishlist: 'Ajouter aux favoris', addedToCart: 'Ajouté au panier',
     heroEyebrow: 'Des soins choisis avec attention', heroTitle: 'Le bien-être au quotidien.', heroDescription: 'Des essentiels pour la peau, le corps et toute la famille, sélectionnés avec soin par des experts de la santé.',
     shopCollection: 'Découvrir la collection', ourApproach: 'Notre approche', startHere: 'Commencer ici', shopByNeed: 'Acheter par besoin', viewAll: 'Voir tout', theEdit: 'La sélection', everydayEssentials: 'Les essentiels du quotidien', exploreProducts: 'Explorer les produits',
@@ -29,7 +29,7 @@ const translations = {
     freeDelivery: 'Des soins choisis avec attention', fastDelivery: 'Livraison rapide et soignée', fromDoor: 'De notre porte à la vôtre', quality: 'Une qualité de confiance', selected: 'Choisis avec intention', guidance: 'Des conseils quand vous en avez besoin', support: 'Un accompagnement simple et humain', formula: 'Des formules pensées avec soin, jamais excessives.', trustedBrands: 'Des marques fiables, clairement expliquées.', joinMyParaOnline: 'Rejoignez myParaOnline.tn pour des produits choisis, des conseils utiles et plus de confiance dans votre routine.',
   },
   ar: {
-    shop: 'المتجر', categories: 'الفئات', approach: 'نهجنا', cart: 'السلة', language: 'اللغة',
+    shop: 'المتجر', categories: 'الفئات', approach: 'نهجنا', trackOrder: 'متابعة الطلب', cart: 'السلة', language: 'اللغة',
     curated: 'مختاراتنا', essentials: 'منتجات صحية أساسية', add: 'أضف', adding: 'جاري الإضافة', removeWishlist: 'إزالة من المفضلة', addWishlist: 'أضف إلى المفضلة', addedToCart: 'أُضيف إلى السلة',
     heroEyebrow: 'عناية مختارة بعناية', heroTitle: 'عناية أفضل لكل يوم.', heroDescription: 'منتجات أساسية للبشرة والجسم والعائلة، مختارة بعناية ومقدمة من أشخاص يفهمون احتياجاتك الصحية.',
     shopCollection: 'اكتشف المجموعة', ourApproach: 'نهجنا', startHere: 'ابدأ من هنا', shopByNeed: 'تسوق حسب الحاجة', viewAll: 'عرض الكل', theEdit: 'مختاراتنا', everydayEssentials: 'أساسيات يومية', exploreProducts: 'استكشف المنتجات',
