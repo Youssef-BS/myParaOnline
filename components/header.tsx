@@ -38,6 +38,7 @@ export function Header() {
     { href: '/categories', label: t('shop') },
     { href: '/categories', label: t('categories') },
     { href: '/about', label: t('approach') },
+    { href: '/track-order', label: t('trackOrder') },
   ]
 
   return <>

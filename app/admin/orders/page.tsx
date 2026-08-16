@@ -42,6 +42,21 @@ export default function OrdersPage() {
     await fetchOrders()
   }
 
+  const deleteOrder = async (orderId: string) => {
+    if (!window.confirm('Delete this order? This action cannot be undone.')) {
+      return
+    }
+
+    const { error } = await supabase.from('orders').delete().eq('id', orderId)
+
+    if (error) {
+      window.alert(error.message || 'Failed to delete this order.')
+      return
+    }
+
+    await fetchOrders()
+  }
+
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -134,12 +149,22 @@ export default function OrdersPage() {
                       </select>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <button
-                        onClick={() => setSelectedOrder(order)}
-                        className="p-2 text-blue-400 hover:bg-blue-500/20 rounded-lg transition"
-                      >
-                        <Eye size={18} />
-                      </button>
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => setSelectedOrder(order)}
+                          className="p-2 text-blue-400 hover:bg-blue-500/20 rounded-lg transition"
+                          aria-label="View order"
+                        >
+                          <Eye size={18} />
+                        </button>
+                        <button
+                          onClick={() => deleteOrder(order.id)}
+                          className="p-2 text-red-400 hover:bg-red-500/20 rounded-lg transition"
+                          aria-label="Delete order"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
